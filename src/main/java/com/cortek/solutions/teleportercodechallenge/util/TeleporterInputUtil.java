@@ -26,14 +26,6 @@ public class TeleporterInputUtil {
         return inputLine.replaceAll(" ", "").matches("[A-Za-z][A-Za-z,-]*-[A-Za-z,-]*[A-Za-z]");
     }
 
-    public String[] parseRouteLineIntoCityNameArray(String routeInputLine) {
-
-        Validate.notNull(routeInputLine, NULL_INPUT_LINE_MESSAGE);
-        Validate.notBlank(routeInputLine.trim(), BLANK_INPUT_LINE_MESSAGE);
-
-        return routeInputLine.replaceAll(" ", "").split("-");
-    }
-
     public boolean isCitiesFromXInNJumpsQuestionLine(String inputLine) {
 
         Validate.notNull(inputLine, NULL_INPUT_LINE_MESSAGE);

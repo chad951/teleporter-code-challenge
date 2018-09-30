@@ -1,14 +1,12 @@
 package com.cortek.solutions.teleportercodechallenge.route;
 
-import com.cortek.solutions.teleportercodechallenge.util.TeleporterInputUtil;
+import com.cortek.solutions.teleportercodechallenge.util.RoutePathUtil;
+import com.cortek.solutions.teleportercodechallenge.util.SimpleRouteUtil;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,30 +14,53 @@ public class RoutePathProcessor {
 
     public static final String NULL_ROUTES_SET_MESSAGE = "The routes set cannot be null";
 
-    private TeleporterInputUtil teleporterInputUtil;
+    private SimpleRouteUtil simpleRouteUtil;
+
+    private RoutePathUtil routePathUtil;
 
     @Autowired
-    public RoutePathProcessor(TeleporterInputUtil teleporterInputUtil) {
-        this.teleporterInputUtil = teleporterInputUtil;
+    public RoutePathProcessor(SimpleRouteUtil simpleRouteUtil, RoutePathUtil routePathUtil) {
+        this.simpleRouteUtil = simpleRouteUtil;
+        this.routePathUtil = routePathUtil;
     }
 
-    public Map<String, List<String[]>> createRoutePaths(Set<String> routes) {
+    public Map<String, List<RoutePath>> createRoutePaths(Set<String> inputRoutes) {
 
-        Map<String, List<String[]>> routePaths = new HashMap<String, List<String[]>>();
+        Map<String, List<RoutePath>> routePaths = new HashMap<>();
+
+        Set<SimpleRoute> simpleRoutes = generateSimpleRoutesFromInput(inputRoutes);
+        Set<String> uniqueCityNames = extractUniqueCityNames(simpleRoutes);
+        Map<String, Set<SimpleRoute>> simpleRoutesByCityNameMap = simpleRouteUtil.buildSimpleRoutesMapByCityNames(uniqueCityNames, simpleRoutes);
+
+        simpleRoutesByCityNameMap.forEach((cityName, simpleRoutesByCityName) -> {
+            simpleRoutesByCityName.forEach(simpleRoute -> {
+                if (routePaths.containsKey(cityName)) {
+                    List<RoutePath> routePathsForCityName = routePaths.get(cityName);
+                    routePathsForCityName.add(routePathUtil.buildRoutePath(cityName, simpleRoute, new RoutePath(), simpleRoutes));
+                }
+            });
+        });
 
         return routePaths;
     }
 
-    public Map<String, String[]> createRouteMap(Set<String> routes) {
+    public Set<SimpleRoute> generateSimpleRoutesFromInput(Set<String> inputRoutes) {
 
-        Validate.notNull(routes, NULL_ROUTES_SET_MESSAGE);
+        Validate.notNull(inputRoutes, NULL_ROUTES_SET_MESSAGE);
 
-        Map<String, String[]> routeMap = routes
-                .stream()
-                .map(route -> teleporterInputUtil.parseRouteLineIntoCityNameArray(route))
-                .collect(Collectors.toMap(cityNameArray -> cityNameArray[0], cityNameArray -> cityNameArray));
+        return inputRoutes.stream().map(inputRoute -> SimpleRoute.createSimpleRoute(inputRoute)).collect(Collectors.toSet());
+    }
 
-        return routeMap;
+    public Set<String> extractUniqueCityNames(Set<SimpleRoute> simpleRoutes) {
+
+        Set<String> uniqueCityNames = new HashSet<>();
+
+        simpleRoutes.forEach(simpleRoute -> {
+            uniqueCityNames.add(simpleRoute.getOriginCityName());
+            uniqueCityNames.add(simpleRoute.getDestinationCityName());
+        });
+
+        return uniqueCityNames;
     }
 
 }

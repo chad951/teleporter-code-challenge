@@ -111,7 +111,7 @@ public class TeleporterInputUtilTest {
 
         Set<String> result = teleporterInputUtil.extractRouteLines(TEST_INPUT_LINES_ARRAY);
 
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -185,7 +185,7 @@ public class TeleporterInputUtilTest {
 
         Set<String> result = teleporterInputUtil.extractCitiesFromXInNJumpsQuestionLines(TEST_INPUT_LINES_ARRAY);
 
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -259,7 +259,7 @@ public class TeleporterInputUtilTest {
 
         Set<String> result = teleporterInputUtil.extractCanITeleportFromXToYQuestionLines(TEST_INPUT_LINES_ARRAY);
 
-        assertEquals(result, expectedResult);
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -333,43 +333,7 @@ public class TeleporterInputUtilTest {
 
         Set<String> result = teleporterInputUtil.extractLoopPossiblefromXQuestionLines(TEST_INPUT_LINES_ARRAY);
 
-        assertEquals(result, expectedResult);
-    }
-
-    @Test
-    public void testParseRouteLineIntoCityNameArray_NullInput() {
-
-        exceptionRule.expect(NullPointerException.class);
-        exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_MESSAGE);
-
-        teleporterInputUtil.parseRouteLineIntoCityNameArray(null);
-    }
-
-    @Test
-    public void testParseRouteLineIntoCityNameArray_BlankInputNoWhitespace() {
-
-        exceptionRule.expect(IllegalArgumentException.class);
-        exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
-
-        teleporterInputUtil.parseRouteLineIntoCityNameArray("");
-    }
-
-    @Test
-    public void testParseRouteLineIntoCityNameArray_BlankInputWhitespace() {
-
-        exceptionRule.expect(IllegalArgumentException.class);
-        exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
-
-        teleporterInputUtil.parseRouteLineIntoCityNameArray(" ");
-    }
-
-    @Test
-    public void testParseRouteLineIntoCityNameArray_ValidInputTrue() {
-
-        String[] expectedResult = new String[] {"Fortuna", "Hemingway"};
-        String[] result = teleporterInputUtil.parseRouteLineIntoCityNameArray(INPUT_LINE_ROUTE);
-
-        assertArrayEquals(result, expectedResult);
+        assertEquals(expectedResult, result);
     }
 
 }

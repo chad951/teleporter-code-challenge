@@ -1,22 +1,16 @@
 package com.cortek.solutions.teleportercodechallenge.route;
 
-import com.cortek.solutions.teleportercodechallenge.util.TeleporterInputUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RoutePathProcessorTest {
@@ -27,33 +21,34 @@ public class RoutePathProcessorTest {
     @InjectMocks
     private RoutePathProcessor routePathProcessor;
 
-    @Mock
-    private TeleporterInputUtil teleporterInputUtil;
-
     @Test
-    public void testCreateRouteMap_NullRouteSet() {
+    public void testGenerateSimpleRoutesFromInput_NullRouteSet() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(RoutePathProcessor.NULL_ROUTES_SET_MESSAGE);
 
-        routePathProcessor.createRouteMap(null);
+        routePathProcessor.generateSimpleRoutesFromInput(null);
     }
 
     @Test
-    public void testCreateRouteMap_EmptyRouteSet() {
+    public void testGenerateSimpleRoutesFromInput_EmptyRouteSet() {
 
-        Map<String, String[]> result = routePathProcessor.createRouteMap(new HashSet<String>());
+        Set<SimpleRoute> result = routePathProcessor.generateSimpleRoutesFromInput(new HashSet<>());
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
 
     @Test
-    public void testCreateRouteMap_NonEmptyRouteSet() {
+    public void testGenerateSimpleRoutesFromInput_NonEmptyRouteSet() {
 
         String fortunaToHemingwayRoute = "Fortuna - Hemingway";
         String fortunaToAtlantisRoute = "Fortuna - Atlantis";
         String hemingwayToChesterfieldRoute = "Hemingway - Chesterfield";
+
+        SimpleRoute fortunaToHemingwaySimpleRoute = new SimpleRoute("Fortuna", "Hemingway");
+        SimpleRoute fortunaToAtlantisSimpleRoute = new SimpleRoute("Fortuna", "Atlantis");
+        SimpleRoute hemingwayToChesterfieldSimpleRoute = new SimpleRoute("Hemingway", "Chesterfield");
 
         Set<String> routeSet = new HashSet<String>() {{
             add(fortunaToHemingwayRoute);
@@ -61,15 +56,46 @@ public class RoutePathProcessorTest {
             add(hemingwayToChesterfieldRoute);
         }};
 
-        when(teleporterInputUtil.parseRouteLineIntoCityNameArray(fortunaToHemingwayRoute)).thenReturn(new String[] {"Fortuna", "Hemingway"});
-        when(teleporterInputUtil.parseRouteLineIntoCityNameArray(fortunaToAtlantisRoute)).thenReturn(new String[] {"Fortuna", "Atlantis"});
-        when(teleporterInputUtil.parseRouteLineIntoCityNameArray(hemingwayToChesterfieldRoute)).thenReturn(new String[] {"Hemingway", "Chesterfield"});
-
-        Map<String, String[]> result = routePathProcessor.createRouteMap(routeSet);
+        Set<SimpleRoute> result = routePathProcessor.generateSimpleRoutesFromInput(routeSet);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        System.out.println(result);
+        assertEquals(3, result.size());
+        assertTrue(result.contains(fortunaToHemingwaySimpleRoute));
+        assertTrue(result.contains(fortunaToAtlantisSimpleRoute));
+        assertTrue(result.contains(hemingwayToChesterfieldSimpleRoute));
+    }
+
+    @Test
+    public void testExtractUniqueCityNames_EmptyRouteArraySet() {
+
+        Set<String> result = routePathProcessor.extractUniqueCityNames(new HashSet<>());
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void testExtractUniqueCityNames_NonEmptyRouteArraySet() {
+
+        String cityNameFortuna = "Fortuna";
+        String cityNameHemingway = "Hemingway";
+        String cityNameAtlantis = "Atlantis";
+
+        Set<SimpleRoute> simpleRoutes = new HashSet<SimpleRoute>() {{
+            add(new SimpleRoute(cityNameFortuna, cityNameHemingway));
+            add(new SimpleRoute(cityNameFortuna, cityNameAtlantis));
+        }};
+
+        Set<String> result = routePathProcessor.extractUniqueCityNames(simpleRoutes);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(3, result.size());
+        assertTrue(result.contains(cityNameFortuna));
+        assertTrue(result.contains(cityNameHemingway));
+        assertTrue(result.contains(cityNameAtlantis));
+
     }
 
 }
