@@ -1,6 +1,7 @@
-package com.cortek.solutions.teleportercodechallenge.util;
+package com.cortek.solutions.teleportercodechallenge.route;
 
 import com.cortek.solutions.teleportercodechallenge.route.SimpleRoute;
+import com.cortek.solutions.teleportercodechallenge.route.SimpleRouteUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

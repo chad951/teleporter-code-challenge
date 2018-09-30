@@ -1,4 +1,4 @@
-package com.cortek.solutions.teleportercodechallenge.util;
+package com.cortek.solutions.teleportercodechallenge.route;
 
 import com.cortek.solutions.teleportercodechallenge.route.SimpleRoute;
 import org.apache.commons.lang3.Validate;

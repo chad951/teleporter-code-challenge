@@ -1,7 +1,6 @@
 package com.cortek.solutions.teleportercodechallenge.query;
 
 import com.cortek.solutions.teleportercodechallenge.route.RoutePath;
-import com.cortek.solutions.teleportercodechallenge.util.QueryUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class QueryProcessorTest {
+public class CitiesFromXInNJumpsQueryProcessorTest {
 
     public static final String TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY = "cities from city1 in 2 jumps";
 
@@ -22,22 +21,22 @@ public class QueryProcessorTest {
         put("city1", new HashSet<RoutePath>() {{
             RoutePath routePath = new RoutePath();
             routePath.getPath().addAll(new ArrayList<String>() {{
-                                                 add("city1");
-                                                 add("city2");
-                                                 add("city3");
-                                             }});
+                add("city1");
+                add("city2");
+                add("city3");
+            }});
             add(routePath);
         }});
     }};
 
     @InjectMocks
-    private QueryProcessor queryProcessor;
+    private CitiesFromXInNJumpsQueryProcessor citiesFromXInNJumpsQueryProcessor;
 
     @Mock
     private QueryUtil queryUtil;
 
     @Test
-    public void testFindCitiesFromXInNJumpsQueryLine_ValidInput() {
+    public void testFindCitiesNamesJumped_ValidInput() {
 
         CitiesFromXInNJumpsQuery citiesFromXInNJumpsQuery = new CitiesFromXInNJumpsQuery("city1", 2);
         when(queryUtil.parseCitiesFromXInNJumpsQuery(TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY)).thenReturn(citiesFromXInNJumpsQuery);
@@ -46,7 +45,7 @@ public class QueryProcessorTest {
             add("city2");
             add("city3");
         }};
-        Set<String> result = queryProcessor.findCitiesFromXInNJumpsQueryLine(TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY, TEST_ROUTE_PATHS_BY_CITY_NAME);
+        Set<String> result = citiesFromXInNJumpsQueryProcessor.findCitiesNamesJumped(TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY, TEST_ROUTE_PATHS_BY_CITY_NAME);
 
         assertEquals(expectedResult, result);
     }

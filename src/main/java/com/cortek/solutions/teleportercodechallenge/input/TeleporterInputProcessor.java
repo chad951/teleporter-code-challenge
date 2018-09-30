@@ -2,7 +2,6 @@ package com.cortek.solutions.teleportercodechallenge.input;
 
 import com.cortek.solutions.teleportercodechallenge.route.RoutePath;
 import com.cortek.solutions.teleportercodechallenge.route.RoutePathProcessor;
-import com.cortek.solutions.teleportercodechallenge.util.TeleporterInputUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

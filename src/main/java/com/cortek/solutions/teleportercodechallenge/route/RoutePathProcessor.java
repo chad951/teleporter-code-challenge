@@ -1,7 +1,5 @@
 package com.cortek.solutions.teleportercodechallenge.route;
 
-import com.cortek.solutions.teleportercodechallenge.util.RoutePathUtil;
-import com.cortek.solutions.teleportercodechallenge.util.SimpleRouteUtil;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

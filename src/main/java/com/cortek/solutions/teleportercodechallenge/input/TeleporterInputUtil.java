@@ -1,4 +1,4 @@
-package com.cortek.solutions.teleportercodechallenge.util;
+package com.cortek.solutions.teleportercodechallenge.input;
 
 import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;

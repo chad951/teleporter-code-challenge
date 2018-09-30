@@ -1,5 +1,6 @@
-package com.cortek.solutions.teleportercodechallenge.util;
+package com.cortek.solutions.teleportercodechallenge.input;
 
+import com.cortek.solutions.teleportercodechallenge.input.TeleporterInputUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

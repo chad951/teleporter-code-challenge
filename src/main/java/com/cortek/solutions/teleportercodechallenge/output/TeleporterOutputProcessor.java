@@ -19,9 +19,16 @@ public class TeleporterOutputProcessor {
             if (i + 1 == cityNamesJumped.size()) {
                 output += cityNamesJumpedList.get(i);
             } else {
-                output += cityNamesJumpedList.get(i) + " ";
+                output += cityNamesJumpedList.get(i) + ", ";
             }
         }
+
+        System.out.println(output);
+    }
+
+    public void printCanITeleportFromXToYQueryLineResults(String canITeleportFromXToYQueryLine, boolean answer) {
+
+        String output = canITeleportFromXToYQueryLine + ": " + answer;
 
         System.out.println(output);
     }
