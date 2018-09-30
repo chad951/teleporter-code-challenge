@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleRouteUtilTest {
@@ -29,6 +29,51 @@ public class SimpleRouteUtilTest {
 
     @InjectMocks
     private SimpleRouteUtil simpleRouteUtil;
+
+    @Test
+    public void testGenerateSimpleRoutesFromInput_NullRouteSet() {
+
+        exceptionRule.expect(NullPointerException.class);
+        exceptionRule.expectMessage(SimpleRouteUtil.NULL_ROUTES_SET_MESSAGE);
+
+        simpleRouteUtil.generateSimpleRoutesFromInput(null);
+    }
+
+    @Test
+    public void testGenerateSimpleRoutesFromInput_EmptyRouteSet() {
+
+        Set<SimpleRoute> result = simpleRouteUtil.generateSimpleRoutesFromInput(new HashSet<>());
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void testGenerateSimpleRoutesFromInput_NonEmptyRouteSet() {
+
+        String fortunaToHemingwayRoute = "Fortuna - Hemingway";
+        String fortunaToAtlantisRoute = "Fortuna - Atlantis";
+        String hemingwayToChesterfieldRoute = "Hemingway - Chesterfield";
+
+        SimpleRoute fortunaToHemingwaySimpleRoute = new SimpleRoute("Fortuna", "Hemingway");
+        SimpleRoute fortunaToAtlantisSimpleRoute = new SimpleRoute("Fortuna", "Atlantis");
+        SimpleRoute hemingwayToChesterfieldSimpleRoute = new SimpleRoute("Hemingway", "Chesterfield");
+
+        Set<String> routeSet = new HashSet<String>() {{
+            add(fortunaToHemingwayRoute);
+            add(fortunaToAtlantisRoute);
+            add(hemingwayToChesterfieldRoute);
+        }};
+
+        Set<SimpleRoute> result = simpleRouteUtil.generateSimpleRoutesFromInput(routeSet);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(3, result.size());
+        assertTrue(result.contains(fortunaToHemingwaySimpleRoute));
+        assertTrue(result.contains(fortunaToAtlantisSimpleRoute));
+        assertTrue(result.contains(hemingwayToChesterfieldSimpleRoute));
+    }
 
     @Test
     public void testFindAllSimpleRoutesForCityName_NullCityName() {
@@ -101,6 +146,37 @@ public class SimpleRouteUtilTest {
         Map<String, Set<SimpleRoute>> result = simpleRouteUtil.buildSimpleRoutesMapByCityNames(cityNames, TEST_SIMPLE_ROUTES);
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testExtractUniqueCityNames_EmptyRouteArraySet() {
+
+        Set<String> result = simpleRouteUtil.extractUniqueCityNames(new HashSet<>());
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void testExtractUniqueCityNames_NonEmptyRouteArraySet() {
+
+        String cityNameFortuna = "Fortuna";
+        String cityNameHemingway = "Hemingway";
+        String cityNameAtlantis = "Atlantis";
+
+        Set<SimpleRoute> simpleRoutes = new HashSet<SimpleRoute>() {{
+            add(new SimpleRoute(cityNameFortuna, cityNameHemingway));
+            add(new SimpleRoute(cityNameFortuna, cityNameAtlantis));
+        }};
+
+        Set<String> result = simpleRouteUtil.extractUniqueCityNames(simpleRoutes);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(3, result.size());
+        assertTrue(result.contains(cityNameFortuna));
+        assertTrue(result.contains(cityNameHemingway));
+        assertTrue(result.contains(cityNameAtlantis));
     }
 
 }

@@ -22,19 +22,15 @@ public class RoutePathUtil {
         Validate.notNull(routePath, NULL_ROUTE_PATH_MESSAGE);
         Validate.notNull(simpleRoutes, NULL_SIMPLE_ROUTE_SET_MESSAGE);
 
-        System.out.println("originCityName: " + originCityName);
-        System.out.println("currentSimpleRoute: " + currentSimpleRoute);
-        System.out.println("routePath: " + routePath);
-
         String destinationCityName = currentSimpleRoute.getOriginCityName().equals(originCityName) ? currentSimpleRoute.getDestinationCityName() : currentSimpleRoute.getOriginCityName();
-        routePath.getPath().add(originCityName);
+        if (!routePath.getPath().contains(originCityName)) {
+            routePath.getPath().add(originCityName);
+        }
         routePath.getPath().add(destinationCityName);
         routePath.getIncludedSimpleRoutes().add(currentSimpleRoute);
 
         simpleRoutes.forEach(simpleRoute -> {
-            System.out.println("Interrogating simpleRoute" + simpleRoute);
             if (simpleRoute.containsCityName(destinationCityName) && !simpleRoute.containsCityName(originCityName) && !routePath.getIncludedSimpleRoutes().contains(simpleRoute)) {
-                System.out.print("The simpleRoute contained the destinationCityName: " + destinationCityName + " and the SimpleRoute did not contain the originCityName: " + originCityName + " and the routePath: " + routePath + " did not contain the simpleRoute: " + simpleRoute);
                 buildRoutePath(destinationCityName, simpleRoute, routePath, simpleRoutes);
             }
         });

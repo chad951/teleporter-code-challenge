@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class RoutePathProcessor {
 
-    public static final String NULL_ROUTES_SET_MESSAGE = "The routes set cannot be null";
+    public static final String NULL_INPUT_ROUTES_SET_MESSAGE = "The input routes set cannot be null";
 
     private SimpleRouteUtil simpleRouteUtil;
 
@@ -24,43 +23,32 @@ public class RoutePathProcessor {
         this.routePathUtil = routePathUtil;
     }
 
-    public Map<String, List<RoutePath>> createRoutePaths(Set<String> inputRoutes) {
+    public Map<String, Set<RoutePath>> generateRoutePaths(Set<String> inputRoutes) {
 
-        Map<String, List<RoutePath>> routePaths = new HashMap<>();
+        Validate.notNull(inputRoutes, NULL_INPUT_ROUTES_SET_MESSAGE);
 
-        Set<SimpleRoute> simpleRoutes = generateSimpleRoutesFromInput(inputRoutes);
-        Set<String> uniqueCityNames = extractUniqueCityNames(simpleRoutes);
+        Map<String, Set<RoutePath>> routePathsByCityName = new HashMap<>();
+
+        Set<SimpleRoute> simpleRoutes = simpleRouteUtil.generateSimpleRoutesFromInput(inputRoutes);
+        Set<String> uniqueCityNames = simpleRouteUtil.extractUniqueCityNames(simpleRoutes);
         Map<String, Set<SimpleRoute>> simpleRoutesByCityNameMap = simpleRouteUtil.buildSimpleRoutesMapByCityNames(uniqueCityNames, simpleRoutes);
 
         simpleRoutesByCityNameMap.forEach((cityName, simpleRoutesByCityName) -> {
             simpleRoutesByCityName.forEach(simpleRoute -> {
-                if (routePaths.containsKey(cityName)) {
-                    List<RoutePath> routePathsForCityName = routePaths.get(cityName);
-                    routePathsForCityName.add(routePathUtil.buildRoutePath(cityName, simpleRoute, new RoutePath(), simpleRoutes));
+                RoutePath routePathForCityName = routePathUtil.buildRoutePath(cityName, simpleRoute, new RoutePath(), simpleRoutes);
+
+                if (routePathsByCityName.containsKey(cityName)) {
+                    Set<RoutePath> routePathsForCityName = routePathsByCityName.get(cityName);
+                    routePathsForCityName.add(routePathForCityName);
+                } else {
+                    Set<RoutePath> routePathsForCityName = new HashSet<>();
+                    routePathsForCityName.add(routePathForCityName);
+                    routePathsByCityName.put(cityName, routePathsForCityName);
                 }
             });
         });
 
-        return routePaths;
-    }
-
-    public Set<SimpleRoute> generateSimpleRoutesFromInput(Set<String> inputRoutes) {
-
-        Validate.notNull(inputRoutes, NULL_ROUTES_SET_MESSAGE);
-
-        return inputRoutes.stream().map(inputRoute -> SimpleRoute.createSimpleRoute(inputRoute)).collect(Collectors.toSet());
-    }
-
-    public Set<String> extractUniqueCityNames(Set<SimpleRoute> simpleRoutes) {
-
-        Set<String> uniqueCityNames = new HashSet<>();
-
-        simpleRoutes.forEach(simpleRoute -> {
-            uniqueCityNames.add(simpleRoute.getOriginCityName());
-            uniqueCityNames.add(simpleRoute.getDestinationCityName());
-        });
-
-        return uniqueCityNames;
+        return routePathsByCityName;
     }
 
 }

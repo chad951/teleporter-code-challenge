@@ -26,7 +26,7 @@ public class TeleporterInputUtil {
         return inputLine.replaceAll(" ", "").matches("[A-Za-z][A-Za-z,-]*-[A-Za-z,-]*[A-Za-z]");
     }
 
-    public boolean isCitiesFromXInNJumpsQuestionLine(String inputLine) {
+    public boolean isCitiesFromXInNJumpsQueryLine(String inputLine) {
 
         Validate.notNull(inputLine, NULL_INPUT_LINE_MESSAGE);
         Validate.notBlank(inputLine.trim(), BLANK_INPUT_LINE_MESSAGE);
@@ -34,7 +34,7 @@ public class TeleporterInputUtil {
         return inputLine.startsWith("cities from");
     }
 
-    public boolean isCanITeleportFromXToYQuestionLine(String inputLine) {
+    public boolean isCanITeleportFromXToYQueryLine(String inputLine) {
 
         Validate.notNull(inputLine, NULL_INPUT_LINE_MESSAGE);
         Validate.notBlank(inputLine.trim(), BLANK_INPUT_LINE_MESSAGE);
@@ -42,7 +42,7 @@ public class TeleporterInputUtil {
         return inputLine.startsWith("can I teleport from");
     }
 
-    public boolean isLoopPossiblefromXQuestionLine(String inputLine) {
+    public boolean isLoopPossiblefromXQueryLine(String inputLine) {
 
         Validate.notNull(inputLine, NULL_INPUT_LINE_MESSAGE);
         Validate.notBlank(inputLine.trim(), BLANK_INPUT_LINE_MESSAGE);
@@ -50,7 +50,7 @@ public class TeleporterInputUtil {
         return inputLine.startsWith("loop possible from");
     }
 
-    public Set<String> extractRouteLines(String inputLines[]) {
+    public Set<String> extractRouteLines(String[] inputLines) {
 
         Validate.notNull(inputLines, NULL_INPUT_LINE_ARRAY_MESSAGE);
         Validate.notEmpty(inputLines, EMPTY_INPUT_LINE_ARRAY_MESSAGE);
@@ -60,33 +60,34 @@ public class TeleporterInputUtil {
         return routeSet;
     }
 
-    public Set<String> extractCitiesFromXInNJumpsQuestionLines(String inputLines[]) {
+    public Set<String> extractCitiesFromXInNJumpsQueryLines(String[] inputLines) {
 
         Validate.notNull(inputLines, NULL_INPUT_LINE_ARRAY_MESSAGE);
         Validate.notEmpty(inputLines, EMPTY_INPUT_LINE_ARRAY_MESSAGE);
 
-        Set<String> routeSet = Arrays.stream(inputLines).filter(inputLine -> isCitiesFromXInNJumpsQuestionLine(inputLine)).collect(Collectors.toSet());
+        Set<String> routeSet = Arrays.stream(inputLines).filter(inputLine -> isCitiesFromXInNJumpsQueryLine(inputLine)).collect(Collectors.toSet());
 
         return routeSet;
     }
 
-    public Set<String> extractCanITeleportFromXToYQuestionLines(String inputLines[]) {
+    public Set<String> extractCanITeleportFromXToYQueryLines(String[] inputLines) {
 
         Validate.notNull(inputLines, NULL_INPUT_LINE_ARRAY_MESSAGE);
         Validate.notEmpty(inputLines, EMPTY_INPUT_LINE_ARRAY_MESSAGE);
 
-        Set<String> routeSet = Arrays.stream(inputLines).filter(inputLine -> isCanITeleportFromXToYQuestionLine(inputLine)).collect(Collectors.toSet());
+        Set<String> routeSet = Arrays.stream(inputLines).filter(inputLine -> isCanITeleportFromXToYQueryLine(inputLine)).collect(Collectors.toSet());
 
         return routeSet;
     }
 
-    public Set<String> extractLoopPossiblefromXQuestionLines(String inputLines[]) {
+    public Set<String> extractLoopPossiblefromXQueryLines(String[] inputLines) {
 
         Validate.notNull(inputLines, NULL_INPUT_LINE_ARRAY_MESSAGE);
         Validate.notEmpty(inputLines, EMPTY_INPUT_LINE_ARRAY_MESSAGE);
 
-        Set<String> routeSet = Arrays.stream(inputLines).filter(inputLine -> isLoopPossiblefromXQuestionLine(inputLine)).collect(Collectors.toSet());
+        Set<String> routeSet = Arrays.stream(inputLines).filter(inputLine -> isLoopPossiblefromXQueryLine(inputLine)).collect(Collectors.toSet());
 
         return routeSet;
     }
+
 }

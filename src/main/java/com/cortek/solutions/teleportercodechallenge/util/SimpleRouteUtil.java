@@ -5,6 +5,7 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ public class SimpleRouteUtil {
     public static final String NULL_CITY_NAME_MESSAGE = "The city name cannot be null";
     public static final String NULL_CITY_NAME_SET_MESSAGE = "The city name set cannot be null";
     public static final String NULL_SIMPLE_ROUTES_MESSAGE = "The simple routes set cannot be null";
+    public static final String NULL_ROUTES_SET_MESSAGE = "The routes set cannot be null";
 
     public Set<SimpleRoute> findAllSimpleRoutesForCityName(String cityName, Set<SimpleRoute> simpleRoutes) {
 
@@ -37,5 +39,24 @@ public class SimpleRouteUtil {
         cityNames.forEach(cityName -> simpleRoutesMapByCityNames.put(cityName, findAllSimpleRoutesForCityName(cityName, simpleRoutes)));
 
         return simpleRoutesMapByCityNames;
+    }
+
+    public Set<SimpleRoute> generateSimpleRoutesFromInput(Set<String> inputRoutes) {
+
+        Validate.notNull(inputRoutes, NULL_ROUTES_SET_MESSAGE);
+
+        return inputRoutes.stream().map(inputRoute -> SimpleRoute.createSimpleRoute(inputRoute)).collect(Collectors.toSet());
+    }
+
+    public Set<String> extractUniqueCityNames(Set<SimpleRoute> simpleRoutes) {
+
+        Set<String> uniqueCityNames = new HashSet<>();
+
+        simpleRoutes.forEach(simpleRoute -> {
+            uniqueCityNames.add(simpleRoute.getOriginCityName());
+            uniqueCityNames.add(simpleRoute.getDestinationCityName());
+        });
+
+        return uniqueCityNames;
     }
 }

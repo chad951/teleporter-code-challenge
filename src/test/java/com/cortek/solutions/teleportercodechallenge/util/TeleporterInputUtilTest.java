@@ -115,223 +115,223 @@ public class TeleporterInputUtilTest {
     }
 
     @Test
-    public void testIsCitiesFromXInNJumpsQuestionLine_NullInput() {
+    public void testIsCitiesFromXInNJumpsQueryLine_NullInput() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isCitiesFromXInNJumpsQuestionLine(null);
+        teleporterInputUtil.isCitiesFromXInNJumpsQueryLine(null);
     }
 
     @Test
-    public void testIsCitiesFromXInNJumpsQuestionLine_BlankInputNoWhitespace() {
+    public void testIsCitiesFromXInNJumpsQueryLine_BlankInputNoWhitespace() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isCitiesFromXInNJumpsQuestionLine("");
+        teleporterInputUtil.isCitiesFromXInNJumpsQueryLine("");
     }
 
     @Test
-    public void testIsCitiesFromXInNJumpsQuestionLine_BlankInputWhitespace() {
+    public void testIsCitiesFromXInNJumpsQueryLine_BlankInputWhitespace() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isCitiesFromXInNJumpsQuestionLine(" ");
+        teleporterInputUtil.isCitiesFromXInNJumpsQueryLine(" ");
     }
 
     @Test
-    public void testIsCitiesFromXInNJumpsQuestionLine_ValidInputTrue() {
+    public void testIsCitiesFromXInNJumpsQueryLine_ValidInputTrue() {
 
-        boolean result = teleporterInputUtil.isCitiesFromXInNJumpsQuestionLine(INPUT_LINE_CITIES_FROM_X_TO_N_JUMPS);
+        boolean result = teleporterInputUtil.isCitiesFromXInNJumpsQueryLine(INPUT_LINE_CITIES_FROM_X_TO_N_JUMPS);
 
         assertTrue(result);
     }
 
     @Test
-    public void testIsCitiesFromXInNJumpsQuestionLine_ValidInputFalse() {
+    public void testIsCitiesFromXInNJumpsQueryLine_ValidInputFalse() {
 
-        boolean result = teleporterInputUtil.isCitiesFromXInNJumpsQuestionLine(INPUT_LINE_CAN_I_TELEPORT_FROM_X_TO_Y);
+        boolean result = teleporterInputUtil.isCitiesFromXInNJumpsQueryLine(INPUT_LINE_CAN_I_TELEPORT_FROM_X_TO_Y);
 
         assertFalse(result);
     }
 
     @Test()
-    public void testExtractCitiesFromXInNJumpsQuestionLines_NullInput() {
+    public void testExtractCitiesFromXInNJumpsQueryLines_NullInput() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_ARRAY_MESSAGE);
 
-        teleporterInputUtil.extractCitiesFromXInNJumpsQuestionLines(null);
+        teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(null);
     }
 
     @Test()
-    public void testExtractCitiesFromXInNJumpsQuestionLines_EmptyInput() {
+    public void testExtractCitiesFromXInNJumpsQueryLines_EmptyInput() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.EMPTY_INPUT_LINE_ARRAY_MESSAGE);
 
-        teleporterInputUtil.extractCitiesFromXInNJumpsQuestionLines(new String[0]);
+        teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(new String[0]);
     }
 
     @Test()
-    public void testExtractCitiesFromXInNJumpsQuestionLines_ValidInput() {
+    public void testExtractCitiesFromXInNJumpsQueryLines_ValidInput() {
 
         Set<String> expectedResult = new HashSet<String>() {{
             add("cities from Summerton in 1 jumps");
             add("cities from Summerton in 2 jumps");
         }};
 
-        Set<String> result = teleporterInputUtil.extractCitiesFromXInNJumpsQuestionLines(TEST_INPUT_LINES_ARRAY);
+        Set<String> result = teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void testIsCanITeleportFromXToYQuestionLine_NullInput() {
+    public void testIsCanITeleportFromXToYQueryLine_NullInput() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isCanITeleportFromXToYQuestionLine(null);
+        teleporterInputUtil.isCanITeleportFromXToYQueryLine(null);
     }
 
     @Test
-    public void testIsCanITeleportFromXToYQuestionLine_BlankInputNoWhitespace() {
+    public void testIsCanITeleportFromXToYQueryLine_BlankInputNoWhitespace() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isCanITeleportFromXToYQuestionLine("");
+        teleporterInputUtil.isCanITeleportFromXToYQueryLine("");
     }
 
     @Test
-    public void testIsCanITeleportFromXToYQuestionLine_BlankInputWhitespace() {
+    public void testIsCanITeleportFromXToYQueryLine_BlankInputWhitespace() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isCanITeleportFromXToYQuestionLine(" ");
+        teleporterInputUtil.isCanITeleportFromXToYQueryLine(" ");
     }
 
     @Test
-    public void testIsCanITeleportFromXToYQuestionLine_ValidInputTrue() {
+    public void testIsCanITeleportFromXToYQueryLine_ValidInputTrue() {
 
-        boolean result = teleporterInputUtil.isCanITeleportFromXToYQuestionLine(INPUT_LINE_CAN_I_TELEPORT_FROM_X_TO_Y);
+        boolean result = teleporterInputUtil.isCanITeleportFromXToYQueryLine(INPUT_LINE_CAN_I_TELEPORT_FROM_X_TO_Y);
 
         assertTrue(result);
     }
 
     @Test
-    public void testIsCanITeleportFromXToYQuestionLine_ValidInputFalse() {
+    public void testIsCanITeleportFromXToYQueryLine_ValidInputFalse() {
 
-        boolean result = teleporterInputUtil.isCanITeleportFromXToYQuestionLine(INPUT_LINE_CITIES_FROM_X_TO_N_JUMPS);
+        boolean result = teleporterInputUtil.isCanITeleportFromXToYQueryLine(INPUT_LINE_CITIES_FROM_X_TO_N_JUMPS);
 
         assertFalse(result);
     }
 
     @Test()
-    public void testExtractCanITeleportFromXToYQuestionLines_NullInput() {
+    public void testExtractCanITeleportFromXToYQueryLines_NullInput() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_ARRAY_MESSAGE);
 
-        teleporterInputUtil.extractCanITeleportFromXToYQuestionLines(null);
+        teleporterInputUtil.extractCanITeleportFromXToYQueryLines(null);
     }
 
     @Test()
-    public void testExtractCanITeleportFromXToYQuestionLines_EmptyInput() {
+    public void testExtractCanITeleportFromXToYQueryLines_EmptyInput() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.EMPTY_INPUT_LINE_ARRAY_MESSAGE);
 
-        teleporterInputUtil.extractCanITeleportFromXToYQuestionLines(new String[0]);
+        teleporterInputUtil.extractCanITeleportFromXToYQueryLines(new String[0]);
     }
 
     @Test()
-    public void testExtractCanITeleportFromXToYQuestionLines_ValidInput() {
+    public void testExtractCanITeleportFromXToYQueryLines_ValidInput() {
 
         Set<String> expectedResult = new HashSet<String>() {{
             add("can I teleport from Springton to Atlantis");
             add("can I teleport from Oaktown to Atlantis");
         }};
 
-        Set<String> result = teleporterInputUtil.extractCanITeleportFromXToYQuestionLines(TEST_INPUT_LINES_ARRAY);
+        Set<String> result = teleporterInputUtil.extractCanITeleportFromXToYQueryLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }
 
     @Test
-    public void testIsLoopPossiblefromXQuestionLine_NullInput() {
+    public void testIsLoopPossiblefromXQueryLine_NullInput() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isLoopPossiblefromXQuestionLine(null);
+        teleporterInputUtil.isLoopPossiblefromXQueryLine(null);
     }
 
     @Test
-    public void testIsLoopPossiblefromXQuestionLine_BlankInputNoWhitespace() {
+    public void testIsLoopPossiblefromXQueryLine_BlankInputNoWhitespace() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isLoopPossiblefromXQuestionLine("");
+        teleporterInputUtil.isLoopPossiblefromXQueryLine("");
     }
 
     @Test
-    public void testIsLoopPossiblefromXQuestionLine_BlankInputWhitespace() {
+    public void testIsLoopPossiblefromXQueryLine_BlankInputWhitespace() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.BLANK_INPUT_LINE_MESSAGE);
 
-        teleporterInputUtil.isLoopPossiblefromXQuestionLine(" ");
+        teleporterInputUtil.isLoopPossiblefromXQueryLine(" ");
     }
 
     @Test
-    public void testIsLoopPossiblefromXQuestionLine_ValidInputTrue() {
+    public void testIsLoopPossiblefromXQueryLine_ValidInputTrue() {
 
-        boolean result = teleporterInputUtil.isLoopPossiblefromXQuestionLine(INPUT_LINE_IS_LOOP_POSSIBLE_FROM_X);
+        boolean result = teleporterInputUtil.isLoopPossiblefromXQueryLine(INPUT_LINE_IS_LOOP_POSSIBLE_FROM_X);
 
         assertTrue(result);
     }
 
     @Test
-    public void testIsLoopPossiblefromXQuestionLine_ValidInputFalse() {
+    public void testIsLoopPossiblefromXQueryLine_ValidInputFalse() {
 
-        boolean result = teleporterInputUtil.isLoopPossiblefromXQuestionLine(INPUT_LINE_CITIES_FROM_X_TO_N_JUMPS);
+        boolean result = teleporterInputUtil.isLoopPossiblefromXQueryLine(INPUT_LINE_CITIES_FROM_X_TO_N_JUMPS);
 
         assertFalse(result);
     }
 
     @Test()
-    public void testExtractLoopPossiblefromXQuestionLines_NullInput() {
+    public void testExtractLoopPossiblefromXQueryLines_NullInput() {
 
         exceptionRule.expect(NullPointerException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.NULL_INPUT_LINE_ARRAY_MESSAGE);
 
-        teleporterInputUtil.extractLoopPossiblefromXQuestionLines(null);
+        teleporterInputUtil.extractLoopPossiblefromXQueryLines(null);
     }
 
     @Test()
-    public void testExtractLoopPossiblefromXQuestionLines_EmptyInput() {
+    public void testExtractLoopPossiblefromXQueryLines_EmptyInput() {
 
         exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage(TeleporterInputUtil.EMPTY_INPUT_LINE_ARRAY_MESSAGE);
 
-        teleporterInputUtil.extractLoopPossiblefromXQuestionLines(new String[0]);
+        teleporterInputUtil.extractLoopPossiblefromXQueryLines(new String[0]);
     }
 
     @Test()
-    public void testExtractLoopPossiblefromXQuestionLines_ValidInput() {
+    public void testExtractLoopPossiblefromXQueryLines_ValidInput() {
 
         Set<String> expectedResult = new HashSet<String>() {{
             add("loop possible from Oaktown");
             add("loop possible from Fortuna");
         }};
 
-        Set<String> result = teleporterInputUtil.extractLoopPossiblefromXQuestionLines(TEST_INPUT_LINES_ARRAY);
+        Set<String> result = teleporterInputUtil.extractLoopPossiblefromXQueryLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }

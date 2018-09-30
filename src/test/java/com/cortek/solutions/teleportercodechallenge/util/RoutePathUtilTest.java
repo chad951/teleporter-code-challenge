@@ -21,6 +21,9 @@ public class RoutePathUtilTest {
         add(new SimpleRoute("city1", "city2"));
         add(new SimpleRoute("city3", "city1"));
         add(new SimpleRoute("city2", "city3"));
+        add(new SimpleRoute("city4", "city5"));
+        add(new SimpleRoute("city5", "city6"));
+        add(new SimpleRoute("city7", "city8"));
     }};
 
     @Rule
@@ -66,16 +69,80 @@ public class RoutePathUtilTest {
     }
 
     @Test
-    public void testBuildRoutePath_ValidInput() {
+    public void testBuildRoutePath_ValidInputForCity1() {
 
         RoutePath expectedResult = new RoutePath();
         expectedResult.getPath().add("city1");
         expectedResult.getPath().add("city2");
         expectedResult.getPath().add("city3");
+        expectedResult.getPath().add("city1");
         expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city1", "city2"));
         expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city2", "city3"));
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city3", "city1"));
 
         RoutePath result = routePathUtil.buildRoutePath("city1", new SimpleRoute("city1", "city2"), new RoutePath(), TEST_SIMPLE_ROUTES);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testBuildRoutePath_ValidInputForCity2() {
+
+        RoutePath expectedResult = new RoutePath();
+        expectedResult.getPath().add("city2");
+        expectedResult.getPath().add("city3");
+        expectedResult.getPath().add("city1");
+        expectedResult.getPath().add("city2");
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city2", "city3"));
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city3", "city1"));
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city1", "city2"));
+
+        RoutePath result = routePathUtil.buildRoutePath("city2", new SimpleRoute("city2", "city3"), new RoutePath(), TEST_SIMPLE_ROUTES);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testBuildRoutePath_ValidInputForCity3() {
+
+        RoutePath expectedResult = new RoutePath();
+        expectedResult.getPath().add("city3");
+        expectedResult.getPath().add("city1");
+        expectedResult.getPath().add("city2");
+        expectedResult.getPath().add("city3");
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city2", "city3"));
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city3", "city1"));
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city1", "city2"));
+
+        RoutePath result = routePathUtil.buildRoutePath("city3", new SimpleRoute("city3", "city1"), new RoutePath(), TEST_SIMPLE_ROUTES);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testBuildRoutePath_ValidInputForCity4() {
+
+        RoutePath expectedResult = new RoutePath();
+        expectedResult.getPath().add("city4");
+        expectedResult.getPath().add("city5");
+        expectedResult.getPath().add("city6");
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city4", "city5"));
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city5", "city6"));
+
+        RoutePath result = routePathUtil.buildRoutePath("city4", new SimpleRoute("city4", "city5"), new RoutePath(), TEST_SIMPLE_ROUTES);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testBuildRoutePath_ValidInputForCity7() {
+
+        RoutePath expectedResult = new RoutePath();
+        expectedResult.getPath().add("city7");
+        expectedResult.getPath().add("city8");
+        expectedResult.getIncludedSimpleRoutes().add(new SimpleRoute("city7", "city8"));
+
+        RoutePath result = routePathUtil.buildRoutePath("city7", new SimpleRoute("city7", "city8"), new RoutePath(), TEST_SIMPLE_ROUTES);
 
         assertEquals(expectedResult, result);
     }
