@@ -44,15 +44,19 @@ public class LoopPossibleFromXQueryProcessor {
         LoopPossibleFromXQuery loopPossibleFromXQuery = queryUtil.parseLoopPossibleFromXQuery(loopPossibleFromXQueryLine);
         String loopCheckCityName = loopPossibleFromXQuery.getLoopCheckCityName();
         RouteNode loopCheckCityNameRouteNode = routeNodeGraphByCityName.get(loopCheckCityName);
+
         if (loopCheckCityNameRouteNode != null) {
-            Set<RouteNode> edgeRouteNodes = findAllEdgeNodesForGivenCityName(loopCheckCityName, loopCheckCityNameRouteNode, new HashSet<>());
-            isLoopPossible = edgeRouteNodes.stream().anyMatch(edgeRouteNode -> simpleRoutes.contains(new SimpleRoute(loopCheckCityName, edgeRouteNode.getCityName())));
+            Set<RouteNode> edgeRouteNodes = findAllEdgeNodesForGivenCityName(loopCheckCityNameRouteNode, new HashSet<>());
+
+            // Check loopCheckCityNameRouteNode and see if edgeRouteNode is in directRouteNode, if it is, loop false;
+            isLoopPossible = edgeRouteNodes.stream().anyMatch(edgeRouteNode -> !loopCheckCityNameRouteNode.getDirectRouteNodes().contains(edgeRouteNode) &&
+                    (simpleRoutes.contains(new SimpleRoute(loopCheckCityName, edgeRouteNode.getCityName())) || simpleRoutes.contains(new SimpleRoute(edgeRouteNode.getCityName(), loopCheckCityName))));
         }
 
         return isLoopPossible;
     }
 
-    public Set<RouteNode> findAllEdgeNodesForGivenCityName(String cityName, RouteNode routeNode, Set<RouteNode> currentEdgeRouteNodes) {
+    public Set<RouteNode> findAllEdgeNodesForGivenCityName(RouteNode routeNode, Set<RouteNode> currentEdgeRouteNodes) {
 
         Set<RouteNode> edgeRouteNodes;
 
@@ -65,9 +69,8 @@ public class LoopPossibleFromXQueryProcessor {
         if (routeNode.getDirectRouteNodes().isEmpty()) {
             edgeRouteNodes.add(routeNode);
         } else {
-            routeNode.getDirectRouteNodes().forEach(directRouteNode -> {
-                edgeRouteNodes.addAll(findAllEdgeNodesForGivenCityName(cityName, directRouteNode, edgeRouteNodes));
-            });
+            routeNode.getDirectRouteNodes().forEach(directRouteNode ->
+                    edgeRouteNodes.addAll(findAllEdgeNodesForGivenCityName(directRouteNode, edgeRouteNodes)));
         }
 
         return edgeRouteNodes;

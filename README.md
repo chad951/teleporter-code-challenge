@@ -1,1 +1,2 @@
 # teleporter-code-challenge
+NOTE: This program was built using Spring Boot and must be executed via it's jar.  Please see the /scripts/test.sh bash script for an example of how to run this program.  Please run a mvn clean install to generate the jar file first.  Also note, this code uses Lombok so you may need to install a plug-in in order to avoid compilation errors.

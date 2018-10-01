@@ -1,0 +1,76 @@
+routePathsByCityName: {
+Summerton=[RoutePath(path=[Summerton, Hemingway, Chesterfield, Springton, Summerton, Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)]), 
+RoutePath(path=[Summerton, Springton, Chesterfield, Hemingway, Fortuna, Atlantis, Summerton], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)])], 
+
+LosAmigos=[RoutePath(path=[LosAmigos, Paristown, Oaktown, LosAmigos], includedSimpleRoutes=[SimpleRoute(originCityName=LosAmigos, destinationCityName=Paristown), SimpleRoute(originCityName=Paristown, destinationCityName=Oaktown), SimpleRoute(originCityName=LosAmigos, destinationCityName=Oaktown)]), 
+RoutePath(path=[LosAmigos, Oaktown, Paristown, LosAmigos], includedSimpleRoutes=[SimpleRoute(originCityName=LosAmigos, destinationCityName=Paristown), SimpleRoute(originCityName=Paristown, destinationCityName=Oaktown), SimpleRoute(originCityName=LosAmigos, destinationCityName=Oaktown)])], 
+
+Springton=[RoutePath(path=[Springton, Chesterfield, Hemingway, Fortuna, Atlantis, Summerton, Springton], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)]), 
+RoutePath(path=[Springton, Summerton, Hemingway, Chesterfield, Springton, Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)])], 
+
+Hemingway=[RoutePath(path=[Hemingway, Chesterfield, Springton, Summerton, Hemingway, Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)]), 
+RoutePath(path=[Hemingway, Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway)]), 
+RoutePath(path=[Hemingway, Summerton, Springton, Chesterfield, Hemingway, Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)])], 
+
+Fortuna=[RoutePath(path=[Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis)]), 
+RoutePath(path=[Fortuna, Hemingway, Chesterfield, Springton, Summerton, Hemingway], includedSimpleRoutes=[SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)])], 
+
+Oaktown=[RoutePath(path=[Oaktown, LosAmigos, Paristown, Oaktown], includedSimpleRoutes=[SimpleRoute(originCityName=LosAmigos, destinationCityName=Paristown), SimpleRoute(originCityName=Paristown, destinationCityName=Oaktown), SimpleRoute(originCityName=LosAmigos, destinationCityName=Oaktown)]), 
+RoutePath(path=[Oaktown, Paristown, LosAmigos, Oaktown], includedSimpleRoutes=[SimpleRoute(originCityName=LosAmigos, destinationCityName=Paristown), SimpleRoute(originCityName=Paristown, destinationCityName=Oaktown), SimpleRoute(originCityName=LosAmigos, destinationCityName=Oaktown)])], 
+
+Atlantis=[RoutePath(path=[Atlantis, Fortuna, Hemingway, Chesterfield, Springton, Summerton, Hemingway], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)])], 
+
+Chesterfield=[RoutePath(path=[Chesterfield, Hemingway, Fortuna, Atlantis, Summerton, Springton, Chesterfield], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)]), 
+RoutePath(path=[Chesterfield, Springton, Summerton, Hemingway, Chesterfield, Fortuna, Atlantis], includedSimpleRoutes=[SimpleRoute(originCityName=Fortuna, destinationCityName=Atlantis), SimpleRoute(originCityName=Hemingway, destinationCityName=Chesterfield), SimpleRoute(originCityName=Fortuna, destinationCityName=Hemingway), SimpleRoute(originCityName=Chesterfield, destinationCityName=Springton), SimpleRoute(originCityName=Summerton, destinationCityName=Hemingway), SimpleRoute(originCityName=Summerton, destinationCityName=Springton)])], 
+
+Paristown=[RoutePath(path=[Paristown, LosAmigos, Oaktown, Paristown], includedSimpleRoutes=[SimpleRoute(originCityName=LosAmigos, destinationCityName=Paristown), SimpleRoute(originCityName=Paristown, destinationCityName=Oaktown), SimpleRoute(originCityName=LosAmigos, destinationCityName=Oaktown)]), 
+RoutePath(path=[Paristown, Oaktown, LosAmigos, Paristown], includedSimpleRoutes=[SimpleRoute(originCityName=LosAmigos, destinationCityName=Paristown), SimpleRoute(originCityName=Paristown, destinationCityName=Oaktown), SimpleRoute(originCityName=LosAmigos, destinationCityName=Oaktown)])]}
+
+
+
+Atlantis
+
+Atlantis Fortuna Hemingway Summerton Springton Chesterfield
+
+Atlantis Fortuna Hemingway Chesterfield Springton Summerton
+
+Atlantis, Fortuna, Hemingway, Chesterfield, Springton, Summerton, Hemingway
+
+Node
+	String cityName
+	ArrayList<Node> adjacentNodes;
+	
+- Find all SimpleRoutes that contains Atlantis
+	- Create initial node for Atlantis
+		- new RouteNode("Atlantis", new ArrayList<>())
+	- Loop the found SimpleRoutes and create a node for each city that isn't Atlantis
+	- Add each node to the Atlantis adjacentNode list
+	- e.g. atlantisRouteNode.getAdjacentNodes().add(new RouteNode("Fortuna", new ArrayList<>()))
+	
+jumpNode: 
+	RouteNode(
+		cityName=city1, 
+		teleportPath=[city1], 
+		directRouteNodes=[
+			RouteNode(
+				cityName=city2, 
+				teleportPath=[city1, city2], 
+				directRouteNodes=[
+					RouteNode(
+						cityName=city3, 
+						teleportPath=[city1, city2, city3], 
+						directRouteNodes=[])]), 
+			RouteNode(
+				cityName=city3, 
+				teleportPath=[city1, city3], 
+				directRouteNodes=[
+					RouteNode(
+						cityName=city2, 
+						teleportPath=[city1, city3, city2], 
+						directRouteNodes=[])])])	
+						
+??? Is Loop Possible
+- Find all Edge RouteNodes for a given City RouteNodeGraph.
+- Loop each Edge RouteNode and see if there is a matching SimpleRoute that contains the start City.
+	
+		

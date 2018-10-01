@@ -1,0 +1,77 @@
+CityName
+SimpleRoute
+
+Fortuna - Hemingway X
+Fortuna - Atlantis
+Hemingway - Chesterfield
+Chesterfield - Springton
+Los Amigos - Paristown
+Paristown - Oaktown
+Los Amigos - Oaktown
+Summerton - Springton
+Summerton - Hemingway
+
+Fortuna
+[Fortuna, Hemingway]
+routePath = [Fortuna] // Set your initial starting city to path
+routePath = [Fortuna, Hemingway] // Find an set the ending city to path
+
+// Starting with the endingCity, find the next SimpleRoute that
+// doesn't equal the beginning SimpleRoute [Fortuna, Hemingway]
+// and contains the endingCity.
+[Hemingway, Chesterfield] // In iteration, Hemingway is the startingCity and Chesterfield is the endingCity
+routePath = [Fortuna, Hemingway, Chesterfield] // Add endingCity
+
+
+// With a startingCity an SimpleRoute
+1.) Initialize routePath with startingCity and ending city from given SimpleRoute
+2.) Call recursive function with startingCity = endingCity, SimpleRoute, pathsArray
+
+
+SimpleRoute
+	String originCity
+	String destinationCity
+	public boolean equals(SimpleRoute compareSimpleRoute) {
+		boolean isEquals = false;
+		if (originCity.equals(compareSimpleRoute) && destinationCity.equals(compareSimpleRoute.getDestinationCity())){
+		}
+		return
+	}
+
+RoutePath
+	List<String> path
+	List<SimpleRoute> simpleRoutesInPath
+
+// Convert input lines to List<SimpleRoute>
+List<SimpleRoute> simpleRoutes // All simple routes given in dataset
+
+// Loop simpleRoutes and extract unique cityName set uniqueCityNames
+
+// Loop uniqueCityNames
+	// Loop simpleRoutes and find all that contain the given startCity (startCity or endCity match) and add each to List<SimpleRoute> startingRoutesForCity
+
+// from a parent method
+	RoutePath routePath = buildPath("Fortuna", {"Fortuna", "Hemingway"}, null, simpleRoutes);
+
+public RoutePath buildPath(String originCityName, SimpleRoute currentSimpleRoute, RoutePath routePath, List<SimpleRoutes> simpleRoutes) {
+	
+	if (routePath == null) {
+		routePath = new RoutePath();
+	}
+
+	String destinationCityName = currentSimpleRoute.getOriginCityName().equals(originCityName) ? currentSimpleRoute.getDestinationCityName() : currentSimpleRoute.getOriginCityName();
+	routePath.getPath.add(originCityName);
+	routePath.getPath.add(destinationCityName);
+	routePath.getSimpleRoutesInPath().add(currentSimpleRoute);
+
+	simpleRoutes.forEach(simpleRoute -> {
+		if (simpleRoute.containsCityName(destinationCityName) && !routePath.getSimpleRoutesInPath().contains(simpleRoute)) {
+			buildPath(destinationCityName, simpleRoute, routePath, simpleRoutes);
+		}
+	});
+
+	return routePath;
+}
+
+
+

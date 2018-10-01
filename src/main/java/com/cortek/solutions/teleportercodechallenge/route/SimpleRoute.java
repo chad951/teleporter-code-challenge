@@ -48,16 +48,9 @@ public class SimpleRoute {
         if (!(o instanceof SimpleRoute)) return false;
         SimpleRoute simpleRoute = (SimpleRoute)o;
 
-        boolean directComparision = new EqualsBuilder().append(cityName1, simpleRoute.getCityName1())
+        return new EqualsBuilder().append(cityName1, simpleRoute.getCityName1())
                 .append(cityName2, simpleRoute.getCityName2())
                 .isEquals();
-
-        boolean inverseComparison = new EqualsBuilder().append(cityName1, simpleRoute.getCityName2())
-                .append(cityName2, simpleRoute.getCityName1())
-                .isEquals();
-
-        return directComparision || inverseComparison;
-
     }
 
     @Override

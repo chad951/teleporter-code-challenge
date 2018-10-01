@@ -72,7 +72,7 @@ public class LoopPossibleFromXQueryProcessorTest {
             add(new RouteNode("city2", new ArrayList<String>(){{add("city1");add("city3");add("city2");}}, new ArrayList<>()));
         }};
 
-        Set<RouteNode> result = loopPossibleFromXQueryProcessor.findAllEdgeNodesForGivenCityName("city1", TEST_ROUTE_NODE, new HashSet<>());
+        Set<RouteNode> result = loopPossibleFromXQueryProcessor.findAllEdgeNodesForGivenCityName(TEST_ROUTE_NODE, new HashSet<>());
 
         assertEquals(expectedResults, result);
     }
