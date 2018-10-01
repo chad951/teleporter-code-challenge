@@ -1,8 +1,8 @@
 package com.cortek.solutions.teleportercodechallenge.query;
 
-import com.cortek.solutions.teleportercodechallenge.output.TeleporterOutputProcessor;
-import com.cortek.solutions.teleportercodechallenge.route.RoutePath;
 import com.cortek.solutions.teleportercodechallenge.input.TeleporterInputUtil;
+import com.cortek.solutions.teleportercodechallenge.output.TeleporterOutputProcessor;
+import com.cortek.solutions.teleportercodechallenge.route.RouteNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class CitiesFromXInNJumpsQueryProcessor implements QueryProcessor {
+public class CitiesFromXInNJumpsQueryProcessor {
 
     private TeleporterInputUtil teleporterInputUtil;
 
@@ -27,39 +27,57 @@ public class CitiesFromXInNJumpsQueryProcessor implements QueryProcessor {
         this.teleporterOutputProcessor = teleporterOutputProcessor;
     }
 
-    @Override
-    public void processQueryLines(String[] inputLines, Map<String, Set<RoutePath>> routePathsByCityName) {
+    public void processQueryLines(String[] inputLines, Map<String, RouteNode> routeNodeGraphByCityName) {
 
-        Set<String> citiesFromXInNJumpsQueryLines = teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(inputLines);
+        List<String> citiesFromXInNJumpsQueryLines = teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(inputLines);
 
         citiesFromXInNJumpsQueryLines.forEach(citiesFromXInNJumpsQueryLine -> {
-            Set<String> cityNamesJumped = findCitiesNamesJumped(citiesFromXInNJumpsQueryLine, routePathsByCityName);
+            Set<String> cityNamesJumped = findCitiesNamesJumped(citiesFromXInNJumpsQueryLine, routeNodeGraphByCityName);
             teleporterOutputProcessor.printCitiesFromXInNJumpsQueryLineResults(citiesFromXInNJumpsQueryLine, cityNamesJumped);
         });
     }
 
-    public Set<String> findCitiesNamesJumped(String citiesFromXInNJumpsQueryLine, Map<String, Set<RoutePath>> routePathsByCityName) {
+    public Set<String> findCitiesNamesJumped(String citiesFromXInNJumpsQueryLine, Map<String, RouteNode> routeNodeGraphByCityName) {
 
         Set<String> cityNamesJumped = new HashSet<>();
         CitiesFromXInNJumpsQuery citiesFromXInNJumpsQuery = queryUtil.parseCitiesFromXInNJumpsQuery(citiesFromXInNJumpsQueryLine);
-        Set<RoutePath> routePaths = routePathsByCityName.get(citiesFromXInNJumpsQuery.getOriginCityName());
+        String originCityName = citiesFromXInNJumpsQuery.getOriginCityName();
         Integer maxNumberOfJumps = citiesFromXInNJumpsQuery.getMaxNumberOfJumps();
 
-        routePaths.forEach(routePath -> {
-            List<String> path = routePath.getPath();
+        RouteNode routeNode = routeNodeGraphByCityName.get(originCityName);
 
-            String originCityName = path.get(0);
-            // Start at 1 so we do not include the origin city.
-            for (int i = 1; (i < path.size() && i <= maxNumberOfJumps); i++) {
-                // The following logic is needed to prevent adding the loop back city to this jump list.
-                String currentCityName = path.get(i);
-
-                if (!currentCityName.equals(originCityName)) {
-                    cityNamesJumped.add(currentCityName);
-                }
-            }
-        });
+       routeNode.getDirectRouteNodes().forEach(directRouteNode -> {
+           Integer currentNumberOfJumps = 0;
+           cityNamesJumped.addAll(buildCityNamesJumpedSet(directRouteNode, maxNumberOfJumps, currentNumberOfJumps, new HashSet<>()));
+       });
 
         return cityNamesJumped;
     }
+
+    public Set<String> buildCityNamesJumpedSet(RouteNode routeNode, Integer maxNumberOfJumps, Integer currentNumberOfJumps, Set<String> currentJumpSet) {
+
+        Set<String> cityNamesJumpedSet;
+
+        if (currentJumpSet == null) {
+            cityNamesJumpedSet = new HashSet<>();
+        } else {
+            cityNamesJumpedSet = new HashSet<String>(){{addAll(currentJumpSet);}};
+        }
+
+        Integer curNumberOfJumps = currentNumberOfJumps + 1;
+        if (curNumberOfJumps <= maxNumberOfJumps) {
+            cityNamesJumpedSet.add(routeNode.getCityName());
+        }
+
+        List<RouteNode> directRouteNodes = routeNode.getDirectRouteNodes();
+        if (!directRouteNodes.isEmpty()) {
+            directRouteNodes.forEach(directRouteNode -> {
+                cityNamesJumpedSet.addAll(buildCityNamesJumpedSet(directRouteNode, maxNumberOfJumps, curNumberOfJumps, currentJumpSet));
+
+            });
+        }
+
+        return cityNamesJumpedSet;
+    }
+
 }

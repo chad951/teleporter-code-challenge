@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: teleporter-code-challenge
+    main:
+      web-application-type: NONE

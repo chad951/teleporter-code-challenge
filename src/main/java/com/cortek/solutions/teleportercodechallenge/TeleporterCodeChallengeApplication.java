@@ -6,26 +6,24 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SpringBootApplication
 public class TeleporterCodeChallengeApplication implements CommandLineRunner {
 
-	public TeleporterInputProcessor teleporterInputProcessor;
-
 	@Autowired
-	public TeleporterCodeChallengeApplication(TeleporterInputProcessor teleporterInputProcessor) {
-		this.teleporterInputProcessor = teleporterInputProcessor;
-	}
+	private TeleporterInputProcessor teleporterInputProcessor;
 
 	public static void main(String[] args) {
-		SpringApplication.run(TeleporterCodeChallengeApplication.class, args);
+
+		SpringApplication app = new SpringApplication(TeleporterCodeChallengeApplication.class);
+		app.run(args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		teleporterInputProcessor.processInput(args[0]);
+		System.out.println("Running Teleporter Application.");
+		if (args.length > 0) {
+			System.out.println("Program Arguments: " + args[0]);
+			teleporterInputProcessor.processInput(args[0]);
+		}
 	}
 }

@@ -1,13 +1,9 @@
 package com.cortek.solutions.teleportercodechallenge.route;
 
-import com.cortek.solutions.teleportercodechallenge.route.SimpleRoute;
 import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -41,7 +37,7 @@ public class SimpleRouteUtil {
         return simpleRoutesMapByCityNames;
     }
 
-    public Set<SimpleRoute> generateSimpleRoutesFromInput(Set<String> inputRoutes) {
+    public Set<SimpleRoute> generateSimpleRoutesFromInput(List<String> inputRoutes) {
 
         Validate.notNull(inputRoutes, NULL_ROUTES_SET_MESSAGE);
 
@@ -53,8 +49,8 @@ public class SimpleRouteUtil {
         Set<String> uniqueCityNames = new HashSet<>();
 
         simpleRoutes.forEach(simpleRoute -> {
-            uniqueCityNames.add(simpleRoute.getOriginCityName());
-            uniqueCityNames.add(simpleRoute.getDestinationCityName());
+            uniqueCityNames.add(simpleRoute.getCityName1());
+            uniqueCityNames.add(simpleRoute.getCityName2());
         });
 
         return uniqueCityNames;

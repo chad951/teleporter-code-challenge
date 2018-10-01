@@ -1,6 +1,6 @@
 package com.cortek.solutions.teleportercodechallenge.query;
 
-import com.cortek.solutions.teleportercodechallenge.route.RoutePath;
+import com.cortek.solutions.teleportercodechallenge.route.RouteNode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,17 +17,18 @@ public class CitiesFromXInNJumpsQueryProcessorTest {
 
     public static final String TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY = "cities from city1 in 2 jumps";
 
-    private static final Map<String, Set<RoutePath>> TEST_ROUTE_PATHS_BY_CITY_NAME = new HashMap<String, Set<RoutePath>>() {{
-        put("city1", new HashSet<RoutePath>() {{
-            RoutePath routePath = new RoutePath();
-            routePath.getPath().addAll(new ArrayList<String>() {{
-                add("city1");
-                add("city2");
-                add("city3");
+    private RouteNode TEST_ROUTE_NODE =
+            new RouteNode("city1", new ArrayList<String>(){{add("city1");}}, new ArrayList<RouteNode>(){{
+                add(new RouteNode("city2", new ArrayList<String>(){{add("city1");add("city2");}}, new ArrayList<RouteNode>(){{
+                    add(new RouteNode("city3", new ArrayList<String>(){{add("city1");add("city2");add("city3");}}, new ArrayList<>()));
+                    add(new RouteNode("city4", new ArrayList<String>(){{add("city1");add("city2");add("city3");add("city4");}}, new ArrayList<>()));
+                }}));
+                add(new RouteNode("city3", new ArrayList<String>(){{add("city1");add("city3");}}, new ArrayList<RouteNode>(){{
+                    add(new RouteNode("city2", new ArrayList<String>(){{add("city1");add("city3");add("city2");}}, new ArrayList<>()));
+                }}));
             }});
-            add(routePath);
-        }});
-    }};
+
+    private Map<String, RouteNode> TEST_ROUTE_NODE_GRAPH = new HashMap<String, RouteNode>(){{put("city1", TEST_ROUTE_NODE);}};
 
     @InjectMocks
     private CitiesFromXInNJumpsQueryProcessor citiesFromXInNJumpsQueryProcessor;
@@ -44,8 +45,9 @@ public class CitiesFromXInNJumpsQueryProcessorTest {
         Set<String> expectedResult = new HashSet<String>() {{
             add("city2");
             add("city3");
+            add("city4");
         }};
-        Set<String> result = citiesFromXInNJumpsQueryProcessor.findCitiesNamesJumped(TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY, TEST_ROUTE_PATHS_BY_CITY_NAME);
+        Set<String> result = citiesFromXInNJumpsQueryProcessor.findCitiesNamesJumped(TEST_CITIES_FROM_X_IN_N_JUMPS_QUERY, TEST_ROUTE_NODE_GRAPH);
 
         assertEquals(expectedResult, result);
     }

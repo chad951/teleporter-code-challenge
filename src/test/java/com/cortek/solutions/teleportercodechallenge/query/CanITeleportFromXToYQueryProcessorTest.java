@@ -1,13 +1,15 @@
 package com.cortek.solutions.teleportercodechallenge.query;
 
-import com.cortek.solutions.teleportercodechallenge.route.RoutePath;
+import com.cortek.solutions.teleportercodechallenge.route.RouteNode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -20,16 +22,19 @@ public class CanITeleportFromXToYQueryProcessorTest {
 
     public static final String TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_FALSE = "can I teleport from city1 to city3";
 
-    private static final Map<String, Set<RoutePath>> TEST_ROUTE_PATHS_BY_CITY_NAME = new HashMap<String, Set<RoutePath>>() {{
-        put("city1", new HashSet<RoutePath>() {{
-            RoutePath routePath = new RoutePath();
-            routePath.getPath().addAll(new ArrayList<String>() {{
-                add("city1");
-                add("city2");
+    private RouteNode TEST_ROUTE_NODE =
+            new RouteNode("city1", new ArrayList<String>(){{add("city1");}}, new ArrayList<RouteNode>(){{
+                add(new RouteNode("city2", new ArrayList<String>(){{add("city1");add("city2");}}, new ArrayList<RouteNode>(){{
+                    add(new RouteNode("city3", new ArrayList<String>(){{add("city1");add("city2");add("city3");}}, new ArrayList<>()));
+                    add(new RouteNode("city4", new ArrayList<String>(){{add("city1");add("city2");add("city3");add("city4");}}, new ArrayList<>()));
+                }}));
+                add(new RouteNode("city3", new ArrayList<String>(){{add("city1");add("city3");}}, new ArrayList<RouteNode>(){{
+                    add(new RouteNode("city2", new ArrayList<String>(){{add("city1");add("city3");add("city2");}}, new ArrayList<>()));
+                    add(new RouteNode("city5", new ArrayList<String>(){{add("city1");add("city3");add("city2");add("city5");}}, new ArrayList<>()));
+                }}));
             }});
-            add(routePath);
-        }});
-    }};
+
+    private Map<String, RouteNode> TEST_ROUTE_NODE_GRAPH = new HashMap<String, RouteNode>(){{put("city1", TEST_ROUTE_NODE);}};
 
     @InjectMocks
     private CanITeleportFromXToYQueryProcessor canITeleportFromXToYQueryProcessor;
@@ -42,7 +47,7 @@ public class CanITeleportFromXToYQueryProcessorTest {
 
         when(queryUtil.parseCanITeleportFromXToYQuery(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_TRUE)).thenReturn(new CanITeleportFromXToYQuery("city1", "city2"));
 
-        boolean result = canITeleportFromXToYQueryProcessor.canTeleportFromXToY(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_TRUE, TEST_ROUTE_PATHS_BY_CITY_NAME);
+        boolean result = canITeleportFromXToYQueryProcessor.canTeleportFromXToY(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_TRUE, TEST_ROUTE_NODE_GRAPH);
 
         assertTrue(result);
     }
@@ -50,9 +55,9 @@ public class CanITeleportFromXToYQueryProcessorTest {
     @Test
     public void testCanTeleportFromXToY_False() {
 
-        when(queryUtil.parseCanITeleportFromXToYQuery(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_FALSE)).thenReturn(new CanITeleportFromXToYQuery("city1", "city3"));
+        when(queryUtil.parseCanITeleportFromXToYQuery(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_FALSE)).thenReturn(new CanITeleportFromXToYQuery("city1", "city6"));
 
-        boolean result = canITeleportFromXToYQueryProcessor.canTeleportFromXToY(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_FALSE, TEST_ROUTE_PATHS_BY_CITY_NAME);
+        boolean result = canITeleportFromXToYQueryProcessor.canTeleportFromXToY(TEST_CAN_I_TELEPORT_FROM_X_TO_Y_QUERY_FALSE, TEST_ROUTE_NODE_GRAPH);
 
         assertFalse(result);
     }

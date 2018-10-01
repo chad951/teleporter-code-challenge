@@ -1,7 +1,5 @@
 package com.cortek.solutions.teleportercodechallenge.route;
 
-import com.cortek.solutions.teleportercodechallenge.route.SimpleRoute;
-import com.cortek.solutions.teleportercodechallenge.route.SimpleRouteUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -9,10 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -43,7 +38,7 @@ public class SimpleRouteUtilTest {
     @Test
     public void testGenerateSimpleRoutesFromInput_EmptyRouteSet() {
 
-        Set<SimpleRoute> result = simpleRouteUtil.generateSimpleRoutesFromInput(new HashSet<>());
+        Set<SimpleRoute> result = simpleRouteUtil.generateSimpleRoutesFromInput(new ArrayList<>());
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
@@ -60,7 +55,7 @@ public class SimpleRouteUtilTest {
         SimpleRoute fortunaToAtlantisSimpleRoute = new SimpleRoute("Fortuna", "Atlantis");
         SimpleRoute hemingwayToChesterfieldSimpleRoute = new SimpleRoute("Hemingway", "Chesterfield");
 
-        Set<String> routeSet = new HashSet<String>() {{
+        List<String> routeSet = new ArrayList<String>() {{
             add(fortunaToHemingwayRoute);
             add(fortunaToAtlantisRoute);
             add(hemingwayToChesterfieldRoute);

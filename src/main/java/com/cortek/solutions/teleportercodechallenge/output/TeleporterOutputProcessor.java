@@ -1,5 +1,6 @@
 package com.cortek.solutions.teleportercodechallenge.output;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,7 +29,14 @@ public class TeleporterOutputProcessor {
 
     public void printCanITeleportFromXToYQueryLineResults(String canITeleportFromXToYQueryLine, boolean answer) {
 
-        String output = canITeleportFromXToYQueryLine + ": " + answer;
+        String output = canITeleportFromXToYQueryLine + ": " + BooleanUtils.toStringYesNo(answer);
+
+        System.out.println(output);
+    }
+
+    public void printLoopPossibleFromXQueryLineResults(String loopPossibleFromXQueryLine, boolean answer) {
+
+        String output = loopPossibleFromXQueryLine + ": " + BooleanUtils.toStringYesNo(answer);
 
         System.out.println(output);
     }

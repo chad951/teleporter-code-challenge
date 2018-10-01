@@ -1,6 +1,5 @@
 package com.cortek.solutions.teleportercodechallenge.input;
 
-import com.cortek.solutions.teleportercodechallenge.input.TeleporterInputUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -8,8 +7,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -105,12 +104,12 @@ public class TeleporterInputUtilTest {
     @Test()
     public void testExtractRouteLines_ValidInput() {
 
-        Set<String> expectedResult = new HashSet<String>() {{
+        List<String> expectedResult = new ArrayList<String>() {{
             add("Fortuna - Hemingway");
             add("Fortuna - Atlantis");
         }};
 
-        Set<String> result = teleporterInputUtil.extractRouteLines(TEST_INPUT_LINES_ARRAY);
+        List<String> result = teleporterInputUtil.extractRouteLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }
@@ -179,12 +178,12 @@ public class TeleporterInputUtilTest {
     @Test()
     public void testExtractCitiesFromXInNJumpsQueryLines_ValidInput() {
 
-        Set<String> expectedResult = new HashSet<String>() {{
+        List<String> expectedResult = new ArrayList<String>() {{
             add("cities from Summerton in 1 jumps");
             add("cities from Summerton in 2 jumps");
         }};
 
-        Set<String> result = teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(TEST_INPUT_LINES_ARRAY);
+        List<String> result = teleporterInputUtil.extractCitiesFromXInNJumpsQueryLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }
@@ -253,12 +252,12 @@ public class TeleporterInputUtilTest {
     @Test()
     public void testExtractCanITeleportFromXToYQueryLines_ValidInput() {
 
-        Set<String> expectedResult = new HashSet<String>() {{
+        List<String> expectedResult = new ArrayList<String>() {{
             add("can I teleport from Springton to Atlantis");
             add("can I teleport from Oaktown to Atlantis");
         }};
 
-        Set<String> result = teleporterInputUtil.extractCanITeleportFromXToYQueryLines(TEST_INPUT_LINES_ARRAY);
+        List<String> result = teleporterInputUtil.extractCanITeleportFromXToYQueryLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }
@@ -327,12 +326,12 @@ public class TeleporterInputUtilTest {
     @Test()
     public void testExtractLoopPossiblefromXQueryLines_ValidInput() {
 
-        Set<String> expectedResult = new HashSet<String>() {{
+        List<String> expectedResult = new ArrayList<String>() {{
             add("loop possible from Oaktown");
             add("loop possible from Fortuna");
         }};
 
-        Set<String> result = teleporterInputUtil.extractLoopPossiblefromXQueryLines(TEST_INPUT_LINES_ARRAY);
+        List<String> result = teleporterInputUtil.extractLoopPossiblefromXQueryLines(TEST_INPUT_LINES_ARRAY);
 
         assertEquals(expectedResult, result);
     }
